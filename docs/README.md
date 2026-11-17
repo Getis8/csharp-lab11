@@ -11,4 +11,4 @@ A **C# / .NET** console project: four problem situations of "Miskavto" solved wi
 | 3 | Anyone could command someone else's car | **Proxy** | `CarControlProxy` checks the renter, logs commands |
 | 4 | Class explosion for option combinations | **Decorator** | `TripOptionDecorator` and option classes |
 
-**Authors:** Katya, Stas. **Run:** `dotnet build`, `dotnet run`, choose `1`-`4`. Diagrams: `docs/diagrams/`.
+**Authors:** Katya, Stas. **Run:** `dotnet build`, `dotnet run`, choose `1`-`4`. Diagrams: `docs/diagrams/`. Peer review: `REVIEW.md`.

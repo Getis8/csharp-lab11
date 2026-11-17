@@ -11,4 +11,4 @@
 | 3 | Будь-хто керував чужим авто | **Proxy** | `CarControlProxy` перевіряє орендаря, веде журнал |
 | 4 | Вибух класів під комбінації опцій | **Decorator** | `TripOptionDecorator` та опції |
 
-**Автори:** Катя, Стас. **Запуск:** `dotnet build`, `dotnet run`, пункти `1`-`4`. Діаграми: `docs/diagrams/`.
+**Автори:** Катя, Стас. **Запуск:** `dotnet build`, `dotnet run`, пункти `1`-`4`. Діаграми: `docs/diagrams/`. Крос-рев'ю: `REVIEW.md`.
