@@ -11,11 +11,27 @@ public class VendorTelematicsAdapter : IFleetTelematics
 
     public string Plate => _block.CarNumber;
 
-    public GeoPoint GetPosition() =>
-        new(ToDecimalDegrees(_block.ReadLatitudeDms()), ToDecimalDegrees(_block.ReadLongitudeDms()));
+    public GeoPoint GetPosition()
+    {
+        var latDms = _block.ReadLatitudeDms();
+        var lonDms = _block.ReadLongitudeDms();
+        double lat = ToDecimalDegrees(latDms);
+        double lon = ToDecimalDegrees(lonDms);
 
-    public double GetFuelPercent() =>
-        Math.Round(_block.ReadFuelLiters() / _block.TankCapacityLiters * 100, 1);
+        Log.Write("Адаптер",
+            $"{Plate}: прочитано DMS з блока виробника, переведено в {lat:F4}, {lon:F4}");
+        return new GeoPoint(lat, lon);
+    }
+
+    public double GetFuelPercent()
+    {
+        double liters = _block.ReadFuelLiters();
+        double percent = Math.Round(liters / _block.TankCapacityLiters * 100, 1);
+
+        Log.Write("Адаптер",
+            $"{Plate}: блок виробника віддав {liters} л з {_block.TankCapacityLiters} л, переведено в {percent:F1}%");
+        return percent;
+    }
 
     private static double ToDecimalDegrees(DmsCoordinate c)
     {

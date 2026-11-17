@@ -16,7 +16,10 @@ public static partial class DemoRunner
         Print("За місто", trip);
     }
 
-    private static void Print(string title, ITrip trip) =>
+    private static void Print(string title, ITrip trip)
+    {
+        decimal cost = trip.CalculateCost();        // розрахунок у журналі йде перед підсумком
         Log.Write("Поїздка",
-            $"{title}: {trip.Describe()}; {trip.PricePerMinute:F2} грн/хв; разом {trip.CalculateCost():F2} грн");
+            $"{title}: {trip.Describe()}; {trip.PricePerMinute:F2} грн/хв; разом {cost:F2} грн");
+    }
 }

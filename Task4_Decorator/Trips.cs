@@ -20,5 +20,11 @@ public class BasicTrip : ITrip
     public BasicTrip(int minutes) => Minutes = minutes;
 
     public string Describe() => $"Поїздка {Minutes} хв";
-    public decimal CalculateCost() => Minutes * PricePerMinute;
+
+    public decimal CalculateCost()
+    {
+        decimal cost = Minutes * PricePerMinute;
+        Log.Write("Базова поїздка", $"{Minutes} хв × {PricePerMinute:F2} = {cost:F2} грн");
+        return cost;
+    }
 }

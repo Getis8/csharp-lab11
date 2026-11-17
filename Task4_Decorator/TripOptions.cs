@@ -14,7 +14,14 @@ public abstract class TripOptionDecorator : ITrip
     public int Minutes => Inner.Minutes;
     public decimal PricePerMinute => Inner.PricePerMinute + Surcharge;
     public string Describe() => $"{Inner.Describe()} + {OptionName}";
-    public decimal CalculateCost() => Minutes * PricePerMinute;
+
+    public decimal CalculateCost()
+    {
+        decimal inner = Inner.CalculateCost();      // спершу рахує обгорнутий об'єкт
+        decimal extra = Minutes * Surcharge;
+        Log.Write($"Опція «{OptionName}»", $"додає {extra:F2} грн до {inner:F2} грн обгорнутого об'єкта");
+        return inner + extra;
+    }
 }
 
 public class FullInsuranceOption : TripOptionDecorator

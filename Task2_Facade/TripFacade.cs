@@ -25,6 +25,9 @@ public class TripFacade
     // Єдине місце з правильним порядком кроків
     public OperationResult StartTrip(string client, string plate)
     {
+        Log.Write("Фасад",
+            $"Початок поїздки {client} на {plate}: передаю підсистемам у єдиному порядку (посвідчення, платіж, резерв, двері, телематика, страхування)");
+
         if (!_license.Verify(client))
             return new(false, "Посвідчення недійсне");
         if (!_payment.HoldFunds(client, HoldAmount))

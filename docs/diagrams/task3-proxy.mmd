@@ -21,11 +21,11 @@ class CarControlProxy {
   +IReadOnlyList~string~ Journal
   -Execute(string client, string command, Func action) CommandResult
 }
-class MobileApp {
+class DemoRunner {
   <<Client>>
 }
 ICarControl <|.. RemoteCarControl
 ICarControl <|.. CarControlProxy
 CarControlProxy "1" --> "1" ICarControl : _real
-MobileApp ..> ICarControl : uses
+DemoRunner ..> ICarControl : uses
 note for CarControlProxy "Не орендар: відмова без виклику сервера. Кожна команда в журналі"
