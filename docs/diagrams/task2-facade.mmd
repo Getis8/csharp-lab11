@@ -1,0 +1,24 @@
+classDiagram
+direction LR
+class TripFacade {
+  <<Facade>>
+  -decimal HoldAmount$
+  +StartTrip(string client, string plate) OperationResult
+}
+class DriverLicenseService { <<Subsystem>> +Verify(string client) bool }
+class PaymentService { <<Subsystem>> +HoldFunds(string client, decimal amount) bool }
+class ReservationService { <<Subsystem>> +Reserve(string plate, string client) void }
+class DoorLockService { <<Subsystem>> +Unlock(string plate) void }
+class TelematicsService { <<Subsystem>> +Enable(string plate) void }
+class InsuranceService { <<Subsystem>> +Insure(string plate, string client) void }
+class MobileApp { <<Client>> +StartTrip(string client, string plate) void }
+class DispatcherConsole { <<Client>> +StartTrip(string client, string plate) void }
+TripFacade "1" --> "1" DriverLicenseService
+TripFacade "1" --> "1" PaymentService
+TripFacade "1" --> "1" ReservationService
+TripFacade "1" --> "1" DoorLockService
+TripFacade "1" --> "1" TelematicsService
+TripFacade "1" --> "1" InsuranceService
+MobileApp ..> TripFacade : uses
+DispatcherConsole ..> TripFacade : uses
+note for TripFacade "Єдине місце з порядком кроків. Підсистеми доступні й напряму"

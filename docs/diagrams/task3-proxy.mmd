@@ -1,0 +1,31 @@
+classDiagram
+direction LR
+class ICarControl {
+  <<interface, Subject>>
+  +OpenDoors(string client) CommandResult
+  +StartEngine(string client) CommandResult
+  +Honk(string client) CommandResult
+}
+class RemoteCarControl {
+  <<Real Subject>>
+  -string _plate
+  +int ServerCalls
+  -Send(string command) CommandResult
+}
+class CarControlProxy {
+  <<Proxy>>
+  -ICarControl _real
+  -string _plate
+  -string _renter
+  -List~string~ _journal
+  +IReadOnlyList~string~ Journal
+  -Execute(string client, string command, Func action) CommandResult
+}
+class MobileApp {
+  <<Client>>
+}
+ICarControl <|.. RemoteCarControl
+ICarControl <|.. CarControlProxy
+CarControlProxy "1" --> "1" ICarControl : _real
+MobileApp ..> ICarControl : uses
+note for CarControlProxy "Не орендар: відмова без виклику сервера. Кожна команда в журналі"

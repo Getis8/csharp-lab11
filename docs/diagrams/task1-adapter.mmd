@@ -1,0 +1,35 @@
+classDiagram
+direction LR
+class IFleetTelematics {
+  <<interface, Target>>
+  +string Plate
+  +GetPosition() GeoPoint
+  +GetFuelPercent() double
+}
+class NativeTelematics {
+  <<Concrete Target>>
+}
+class VendorTelematicsAdapter {
+  <<Adapter>>
+  -VendorTelematicsBlock _block
+  +GetPosition() GeoPoint
+  +GetFuelPercent() double
+  -ToDecimalDegrees(DmsCoordinate c)$ double
+}
+class VendorTelematicsBlock {
+  <<Adaptee>>
+  +string CarNumber
+  +double TankCapacityLiters
+  +ReadLatitudeDms() DmsCoordinate
+  +ReadLongitudeDms() DmsCoordinate
+  +ReadFuelLiters() double
+}
+class FleetMapView {
+  <<Client>>
+  +Show(IEnumerable~IFleetTelematics~ cars) void
+}
+IFleetTelematics <|.. NativeTelematics
+IFleetTelematics <|.. VendorTelematicsAdapter
+VendorTelematicsAdapter "1" --> "1" VendorTelematicsBlock : _block
+FleetMapView ..> IFleetTelematics : uses
+note for VendorTelematicsAdapter "Уся конвертація DMS у градуси та літрів у відсотки тут"

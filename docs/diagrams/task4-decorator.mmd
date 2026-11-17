@@ -1,0 +1,33 @@
+classDiagram
+direction TB
+class ITrip {
+  <<interface, Component>>
+  +int Minutes
+  +decimal PricePerMinute
+  +Describe() string
+  +CalculateCost() decimal
+}
+class BasicTrip {
+  <<Concrete Component>>
+  +decimal BasePricePerMinute$
+}
+class TripOptionDecorator {
+  <<abstract, Decorator>>
+  #ITrip Inner
+  #string OptionName*
+  #decimal Surcharge*
+}
+class FullInsuranceOption { <<Concrete Decorator>> }
+class ChildSeatOption { <<Concrete Decorator>> }
+class SecondDriverOption { <<Concrete Decorator>> }
+class OutOfCityOption { <<Concrete Decorator>> }
+class RoofBoxOption { <<Concrete Decorator>> }
+ITrip <|.. BasicTrip
+ITrip <|.. TripOptionDecorator
+TripOptionDecorator "1" o-- "1" ITrip : Inner
+TripOptionDecorator <|-- FullInsuranceOption
+TripOptionDecorator <|-- ChildSeatOption
+TripOptionDecorator <|-- SecondDriverOption
+TripOptionDecorator <|-- OutOfCityOption
+TripOptionDecorator <|-- RoofBoxOption
+note for TripOptionDecorator "Нова опція це новий клас. Існуючі не змінюються"
